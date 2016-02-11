@@ -10,6 +10,10 @@ describe 'Feature Test: User Signup', :type => :feature do
     user_signup
     expect(page.get_rack_session_key('user_id')).to_not be_nil
   end
+  
+end
+
+describe 'Feature Test: User Signin', :type => :feature do
 
   it 'successfully logs in as non-admin' do
     user_login
@@ -20,14 +24,22 @@ describe 'Feature Test: User Signup', :type => :feature do
     expect(page.get_rack_session_key('user_id')).to_not be_nil
   end
 
+end
+
+describe 'Feature Test: User Signup As Admin', :type => :feature do
+
   it 'successfully signs up as admin' do
     admin_signup
   end
 
-  it "on sign up for admin, successfully adds a session hash" do 
+  it "on sign up for admin, successfully adds a session hash" do
     admin_signup
     expect(page.get_rack_session_key('user_id')).to_not be_nil
   end
+
+end
+
+describe 'Feature Test: User Signin As Admin', :type => :feature do
 
   it 'successfully logs in as admin' do
     admin_login
@@ -79,7 +91,7 @@ end
 
 describe 'Feature Test: Go on a Ride', :type => :feature do
 
-  before :each do 
+  before :each do
     @rollercoaster = Attraction.create(
       :name => "Roller Coaster",
       :tickets => 5,
@@ -216,7 +228,7 @@ end
 
 describe 'Feature Test: Admin Flow', :type => :feature do
 
-  before :each do 
+  before :each do
     @rollercoaster = Attraction.create(
       :name => "Roller Coaster",
       :tickets => 5,
