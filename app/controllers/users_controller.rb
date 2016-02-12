@@ -1,3 +1,4 @@
+require 'pry'
 class UsersController < ApplicationController
 
   def new
@@ -8,7 +9,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      redirect_to user_path(@user), :notice => "You Just Signed Up"
+      redirect_to user_path(@user), :alert => "You Just Signed Up"
     else
       render 'new', :alert => "Please Fill In All Forms"
     end
@@ -21,10 +22,17 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to user_path(@user), :notice => "You Just Updated Your User Account"
+      redirect_to user_path(@user), :alert => "You Just Updated Your User Account"
     else
       render 'edit', :alert => "Please Fill In All Forms"
     end
+  end
+
+  def ride
+    #binding.pry
+    @ride = Ride.new(user_id: current_user.id, attraction_id: params[:format])
+    msg = @ride.take_ride
+    redirect_to user_path(current_user), :alert => msg
   end
 
   def show
